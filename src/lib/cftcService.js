@@ -39,6 +39,9 @@ export async function fetchCOTData(limit = 500) {
 }
 
 function parseCOTData(raw) {
+  // Debug: log first row to check column names
+  if (raw.length > 0) console.log('CFTC columns:', Object.keys(raw[0]));
+  
   const byContract = {};
   raw.forEach(row => {
     const contractName = row.contract_market_name?.toUpperCase().trim() || '';
@@ -46,10 +49,12 @@ function parseCOTData(raw) {
     if (!matchKey) return;
     const meta = CONTRACT_MAP[matchKey];
     const date = row.report_date_as_yyyy_mm_dd;
-    const long = parseInt(row.money_manager_positions_long_all) || 0;
-    const short = parseInt(row.money_manager_positions_short_all) || 0;
-    const net = long - short;
+    
+    const long = parseInt(row.m_money_positions_long_all) || 0;
+    const short = parseInt(row.m_money_positions_short_all) || 0;
     const oi = parseInt(row.open_interest_all) || 0;
+    const net = long - short;
+    
     if (!byContract[matchKey]) byContract[matchKey] = { ...meta, key: matchKey, history: [] };
     byContract[matchKey].history.push({ date, long, short, net, oi });
   });
