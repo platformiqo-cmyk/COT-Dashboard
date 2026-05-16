@@ -1,9 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/api/cftc/:path*",
-      "destination": "https://publicreporting.cftc.gov/resource/:path*"
-    },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

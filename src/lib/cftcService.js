@@ -27,7 +27,7 @@ export const CONTRACT_MAP = {
 
 export async function fetchCOTData(limit = 500) {
   try {
-    const url = `${CFTC_BASE}/${DATASET}.json?$limit=${limit}&$order=report_date_as_yyyy_mm_dd DESC`;
+    const url = `/api/cftc?dataset=${DATASET}&$limit=${limit}&$order=report_date_as_yyyy_mm_dd DESC`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`CFTC API lỗi: ${res.status}`);
     const raw = await res.json();
