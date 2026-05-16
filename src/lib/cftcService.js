@@ -1,4 +1,4 @@
-const CFTC_BASE = 'https://publicreporting.cftc.gov/resource';
+const CFTC_BASE = '/api/cftc';
 const DATASET = 'kh3c-gbw2';
 
 export const CONTRACT_MAP = {
